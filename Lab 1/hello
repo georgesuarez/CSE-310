@@ -1,0 +1,46 @@
+#! /usr/local/Cellar/icarus-verilog/10.2/bin/vvp
+:ivl_version "10.2 (stable)" "(v10_2)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x7fda04403780 .scope module, "hello_world" "hello_world" 2 1;
+ .timescale 0 0;
+v0x7fda04413ca0_0 .var "a", 15 0;
+v0x7fda04413d50_0 .var "b", 15 0;
+v0x7fda04413e00_0 .net "s", 15 0, L_0x7fda04413ed0;  1 drivers
+S_0x7fda044038e0 .scope module, "sumTest" "Sum" 2 8, 3 1 0, S_0x7fda04403780;
+ .timescale 0 0;
+    .port_info 0 /INPUT 16 "a"
+    .port_info 1 /INPUT 16 "b"
+    .port_info 2 /OUTPUT 16 "s"
+v0x7fda04403a90_0 .net "a", 15 0, v0x7fda04413ca0_0;  1 drivers
+v0x7fda04413ae0_0 .net "b", 15 0, v0x7fda04413d50_0;  1 drivers
+v0x7fda04413b90_0 .net "s", 15 0, L_0x7fda04413ed0;  alias, 1 drivers
+L_0x7fda04413ed0 .arith/sum 16, v0x7fda04413ca0_0, v0x7fda04413d50_0;
+    .scope S_0x7fda044038e0;
+T_0 ;
+    %delay 20, 0;
+    %vpi_call 3 5 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_0x7fda04403780;
+T_1 ;
+    %pushi/vec4 2, 0, 16;
+    %store/vec4 v0x7fda04413ca0_0, 0, 16;
+    %pushi/vec4 2, 0, 16;
+    %store/vec4 v0x7fda04413d50_0, 0, 16;
+    %vpi_call 2 13 "$display", "CSUSB CSE 310 is fun!" {0 0 0};
+    %vpi_call 2 14 "$monitor", " The sum of %d and %d is %d", v0x7fda04413ca0_0, v0x7fda04413d50_0, v0x7fda04413e00_0 {0 0 0};
+    %delay 80, 0;
+    %vpi_call 2 15 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "hello.v";
+    "sum.v";
