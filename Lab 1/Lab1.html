@@ -1,26 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<style>
+    h2 {
+        text-decoration: underline;
+    }
+</style>
+
 <head>
     <title>Lab 1</title>
 </head>
+
 <body>
-    <h1>Ohm's Law, Transistors, Elementary Logic Gates</h1>
+    <h1>Lab 1: Ohm's Law and Diodes</h1>
     <small>by George Suarez and Cyrus Melchor</small>
     <hr>
 
     <ol>
-        <h2>1. Resistor</h1>
+        <h2>1. Resistor</h2>
         <table>
             <tbody>
-                <tr>Row 1</tr>
-                    <th>
-                        Resistor 1
-                    </th>
-                    <td>300 </td>
+                <tr>
+                    <th align="left">Data Measurements</th>
+                </tr>
+                <tr>
+                    <th align="left">Resistor 1 alone: </th>
+                    <td>13,000 &#8486</td>
+                </tr>
+                <tr>
+                    <th align="left">Resistor 2 alone: </th>
+                    <td align="justify">100 &#8486</td>
+                </tr>
+                <tr>
+                    <th align="left">Resistors in series: </th>
+                    <td align="justify">13,100 &#8486 = 13,000 &#8486 + 100 &#8486</td>
+                </tr>
+                <tr>
+                    <th align="left">Resistors in parallel: </th>
+                    <td align="justify">99 &#8486 = 1 / (1 / 13,000 &#8486 + 1 / 100 &#8486)</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <h4>Current through the resistor: </h4>
+        <table>
+            <tbody>
+                <tr>
+                    <th align="left">Calculation Prediction</th>
+                </tr>
+                <tr>
+                    <th align="left">Current through Resistor 1: </th>
+                    <td align="right">0.38 mA = 5 V / 13,000 &#8486</td>
+                </tr>
+                <tr>
+                    <th align="left">Current through Resistor 2: </th>
+                    <td align="right">50 mA = 5 V / 100 &#8486</td>
+                </tr>
+                <tr>
+                    <th align="left">Current through resistors in series: </th>
+                    <td align="right">0.38 mA = 5 V / 13,100 &#8486</td>
+                </tr>
+                <tr>
+                    <th align="left">Current through resistors in parallel: </th>
+                    <td align="right">51 mA = 5 V / 99 &#8486</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table>
+            <tbody>
+                <tr>
+                    <th align="left">Multi-meter Readings</th>
+                </tr>
+                <tr>
+                    <th align="left">Current through Resistor 1: </th>
+                    <td align="right">0.41 mA</td>
+                </tr>
+                <tr>
+                    <th align="left">Current through Resistor 2: </th>
+                    <td align="right">51.5 mA</td>
+                </tr>
+                <tr>
+                    <th align="left">Current through resistors in series: </th>
+                    <td align="right">0.37 mA</td>
+                </tr>
+                <tr>
+                    <th align="left">Current through resistors in parallel: </th>
+                    <td align="right">49.4 mA</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <h3>Discussion: </h3>
+        <p>In this section we were introduced to Ohm's Law, and logic gates. We were immediately introduced to a breadboard which is essentially a platform
+            for making experimental models of electric circuits. Next we were given resistors and a multi-meter to measure the resistance. We then
+            calculated reistor 1, resistor 2, and the resistance of the resistors in series and parallel. We then wrote down the experimental values
+            of these calculations by running a current of 5 volts through the circuit. Then, we used the multi-meter to measure the exisiting current
+            through resistor 1, resistor 2, and resistors in parallel.
+        </p>
+        <br>
+
+        <h2>2. Diode</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <th align="left">Data Measurements</th>
+                </tr>
+                <tr>
+                    <th align="left">Diode One Way: </th>
+                    <td align="right">1 M&#8486</td>
+                </tr>
+                <tr>
+                    <th align="left">Diode Reversed: </th>
+                    <td>&#8734 &#8486</td>
+                </tr>
+                <tr>
+                    <th align="left">Voltage across diode with one resistor: </th>
+                    <td align="justify"> 5.02 V</td>
+                </tr>
+                <tr>
+                    <th align="left">Voltage across diode with two resistors in series: </th>
+                    <td align="justify"> 4.98 V</td>
+                </tr>
             </tbody>
         </table>
     </ol>
+    <ul>
+        <h3>Questions</h3>
+        <ol>
+            <li>What end of a diode must be connected to the ground?</li>
+            <p>The back of the diode is what should be connected to the ground because thats where the current is based from.</p>
+            <br>
+            <li>What would happen if you use a resistor with a much larger resistance?</li>
+            <p>Resistors slow current flowing through a circuit; therefore, placing a resistor wire a larger resistance would
+                slow the current down even more. However, if the current is at zero (or close), adding more resistance to
+                a current that is already at its max resistance, wouldn't do anything since it has reached its limit.
+            </p>
+        </ol>
+        <h3>Discussion: </h3>
+        <p>In this section, we added diodes. A diode is a semiconductor device with two terminals. However, in a diode current can only flow
+            in one direction only. To test this theory, we measured the resistance of the diode both ways only to discover that it is true
+            that current only flows one way. We then measured the voltage one way, reversed, across the diode with one resistor, and across
+            the diode with two resistors in series. Lastly, we assembled a 'wired' gate using two diodes and a resistor (with 15K &#8486)
+            according to the instructed design, and connected X and Y inputs on the two switches on the breadboard. Then, we connected the 
+            Z output to an LED and made a logic probe.
+        </p>
+    </ul>
+    <ul>
+        <h2>3. Verilog Program</h2>
+        <a href="https://github.com/georgesuarez/CSE-310/tree/master/Lab%201">Github Link</a>
 
-
+        <h3>Discussion:</h3>
+        <p>We learned how verilog programs worked, and their purpose for our class. It is a programming language that is able
+            to simulate hardware, and it is, in our opinion, a eaiser language to work with than other programming languages
+            such as assembly. We have successfully completed all parts of the lab resulting in a total score of 20 out of 20 for Lab 1. 
+        </p>
+    </ul>
 </body>
+
 </html>
