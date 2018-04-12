@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Lab 2</title>
+</head>
+
+<style>
+    h2 {
+        text-decoration: underline;
+    }
+</style>
+
+<body>
+    <h1>Lab 2: Transistors, Elementary Logic Gates and Verilog Programming using ISE</h1>
+    <small>By George Suarez and Cyrus Melchor</small>
+    <hr>
+
+    <ol>
+        <h2>1. Building an inverter</h2>
+        <h3>Discussion: </h3>
+        <p>This lab consisted of transistors, logic gates and Verilog programing (using ISE). First, we began by building an
+            inverter using an NPN transistor. Using a breadboard, we were able to create the inverter and it functioned properly.
+            Second, we built a NOR gate using NPN transistors. This time around we switched to the new and improved blue-plated
+            NPN transistors - which were said to be more efficient according to the lab TA. Upon learning (finally) how the
+            breadboard actually functions (eg. which way power runs) we were able to efficiently and effectively build a
+            NOR gate and tested its functionality using the switched on the breadboard. The switches turned on (1) and off
+            (1). When X and Y were both turned off (0), the breadboard displayed it was on (1). When X and Y were individually
+            or simultaneously on (1), the breadboard displayed the output was off (0) which proves our NOR gate to be functioning
+            properly. </p>
+        <br>
+        <h2>2. Verilog Programming using ISE</h2>
+        <p>Step 1: Opened terminal and typed
+            <i>ise</i> to open the Xilinx ise Verilog IDE</p>
+        <p>Step 2: Clicked
+            <i>Open Project...</i>
+        </p>
+        <p>Step 3: Typed
+            <i>HelloProject</i> into the Name field</p>
+        <p>Step 4: Clicked
+            <i>Next</i> and
+            <i>Next</i> again then clicked
+            <i>Finish</i>
+        </p>
+        <p>Step 5: Clicked
+            <i>Project</i>
+        </p>
+        <p>Step 6: Clicked
+            <i>New Source</i>
+        </p>
+        <p>Step 7: Selected
+            <i>Verilog Test Fixture</i> and typed
+            <i>hello.v</i> into the File Name field</p>
+        <p>Step 8: Clicked
+            <i>Next</i> and
+            <i>Next</i> again and then
+            <i>Finish</i>
+        </p>
+        <p>Step 9: Wrote the code for the
+            <i>hello.v</i> file </p>
+        <p>Step 10: Then clicked on
+            <i>Project</i> then clicked on
+            <i>New Source</i>
+        </p>
+        <p>Step 11: Selected
+            <i>Verilog Module</i> and typed
+            <i>sum.v</i> into the File Name field</p>
+        <p>Step 12: Typed
+            <i>Sum</i> in the Module Name field</p>
+        <p>Step 13: Put
+            <i>a</i> as the first Port Name and checked
+            <i>Bus</i> and 15 under MSB and 0 under LSB</p>
+        <p>Step 14: Put
+            <i>b</i> as the second Port Name and checked
+            <i>Bus</i> and 15 under MSB and 0 under LSB</p>
+        <p>Step 15: Put
+            <i>s</i> as the third Port Name and changed the direction to
+            <i>output</i> and checked Bus and 15 under MSB and 0 under LSB</p>
+        <p>Step 16: Clicked
+            <i>Next</i> and then
+            <i>Finish</i>
+        </p>
+        <p>Step 17: Wrote the code for
+            <i>sum.v</i>
+        </p>
+        <p>Step 18: Under iSim Simulator, double-clicked
+            <i>Behavioral Check Syntax</i> and then
+            <i>Simulate Behavioral Model to run the program</i>
+        </p>
+        <p>Step 19: Finished</p>
+        <h4>hello.v:</h4>
+        <pre><code>// Verilog Test Fixture Template
+
+                &nbsp;&nbsp;`timescale 1 ns / 1 ps
+                
+                &nbsp;&nbsp;module hello_world;
+                &nbsp;&nbsp;//inputs
+                &nbsp;reg [15:0] a;
+                &nbsp;reg [15:0] b;
+                &nbsp;&nbsp;//outputs
+                &nbsp;wire [15:0] s;
+                &nbsp;Sum sumTest ( .a (a), .b (b), .s (s) );
+                initial begin
+                &nbsp;a = 89;
+                &nbsp;b = 64;
+                &nbsp;$display ( "Hello Again!\n" );
+                &nbsp;$monitor ( "The sum of %d and %d is %d", a, b, s);
+                &nbsp;#80 $finish;
+                    
+                end
+                
+                &nbsp;&nbsp;endmodule</code></pre>
+        <h4>sum.v: </h4>
+        <pre><code>`timescale 1ns / 1ps
+                //////////////////////////////////////////////////////////////////////////////////
+                // Company: 
+                // Engineer: 
+                // 
+                // Create Date:    14:56:54 04/09/2018 
+                // Design Name: 
+                // Module Name:    Sum 
+                // Project Name: 
+                // Target Devices: 
+                // Tool versions: 
+                // Description: 
+                //
+                // Dependencies: 
+                //
+                // Revision: 
+                // Revision 0.01 - File Created
+                // Additional Comments: 
+                //
+                //////////////////////////////////////////////////////////////////////////////////
+                module Sum(
+                &nbsp;&nbsp;&nbsp;&nbsp;input [15:0] a,
+                &nbsp;&nbsp;&nbsp;&nbsp;input [15:0] b,
+                &nbsp;&nbsp;&nbsp;&nbsp;output [15:0] s
+                &nbsp;&nbsp;&nbsp;&nbsp;);
+                &nbsp;&nbsp;assign s = a + b;
+                &nbsp;&nbsp;initial begin
+                &nbsp;&nbsp;#20 $finish;
+                &nbsp;&nbsp;end
+                
+                endmodule
+                </code></pre>
+        <h4>Output: </h4>
+        <p>
+            Hello Again! The sum of 89 and 64 is 153
+        </p>
+        <h3>Discussion: </h3>
+        <p> We used “ise” to develop two programs: 1) A Verilog program that displayed the message “Hello
+            Again!”. 2) A module in another file (sum.v) that sums two integers; testing it using hello.v. I believe we showed
+            all of our work, answered all the questions in the manual, and completed all parts of this lab successfully.
+            We showed a successful lab to the lab instructor; therefore, ensuring us of a full-credit lab (20/20).</p>
+    </ol>
+
+</body>
+
+</html>
