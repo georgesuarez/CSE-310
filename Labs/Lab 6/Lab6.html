@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Lab 6</title>
+</head>
+
+<body>
+    <h1>Lab 6 - HEX 7-Segment LED Decoder</h1>
+    <small>By George Suarez and Cyrus Melchor</small>
+    <hr>
+
+    <h2>1. Preparation</h2>
+    <h3>
+        <i>Lab6.pld: </i>
+    </h3>
+    <pre>
+            PARTNO       PLD01;
+            NAME         CODECONV;
+            DATE         05/06/18;
+            REV          01;
+            DESIGNER     George Suarez Cyrus Melchor;
+            COMPANY      CSUSB;
+            DEVICE       G16V8A;
+            ASSEMBLY     BREADBOARD;
+            LOCATION     JBH-356;
+            
+            /* INPUTS */
+            PIN 1 = A;
+            PIN 2 = B;
+            PIN 3 = C;
+            PIN 4 = D;
+            
+            /* OUTPUTS */
+            PIN 12 = a;
+            PIN 13 = b;
+            PIN 14 = c;
+            PIN 15 = d;
+            PIN 16 = e;
+            PIN 17 = f;
+            PIN 18 = g;
+            
+            /* BOOLEAN FUNCTIONS */
+            a = (!B&!D) # C # (B&D) # A;
+            b = !B # (!C&!D) # (C&D);
+            c = !C # D # B;
+            d = (!B&!D) # (!B&C) # (B&!C&D) # (C&!D) # A;
+            e = (!B&!D) # (C&!D);
+            f = (!C&!D) # (B&!C) # (B&!D) # A;
+            g = (!B&C) # (B&!C) # A # (B&!D);
+    </pre>
+
+    <br>
+
+    <h2>2. Experiment</h2>
+    <h3>
+        <i>7segled.v: </i>
+    </h3>
+    <pre>
+        module seven_segment_led ( output a, b, c, d, e, f, g, input A, B, C, D );
+            assign a = (!B && !D) || C || (B && D) || A;
+            assign b = !B || (!C && !D) || (C && D);
+            assign c = !C || D || B;
+            assign d = (!B && !D) || (!B && C) || (B && !C && D) || (C && !D) || A;
+            assign e = (!B && !D) || (C && !D);
+            assign f = (!C && !D) || (B && !C) || (B && !D) || A;
+            assign g = (!B && C) || (B && !C) || A || (B && !D);
+        endmodule
+    </pre>
+    <h3>
+        <i>7segled-tb.v: </i>
+    </h3>
+    <pre>
+            `timescale 1ns / 1ps
+
+             module test();
+            
+                reg A, B, C, D;
+                output a, b, c, d, e, f, g;
+            
+                initial
+                 begin
+            
+                        $display("Time\t A    B  C  D |  a b c d e f g");
+                        $monitor("%g\t %b    %b  %b  %b |  %b %b %b %b %b %b %b", 
+                        $time, A, B, C, D, a, b, c, d, e, f, g);
+                end
+            
+                initial
+                 begin
+            
+                        A = 1'b0;
+                        B = 1'b0;
+                        C = 1'b0;
+                        D = 1'b0;
+                    
+                        #150 $finish;
+                 end
+            
+                
+                    always #10 D = ~D;
+                    always #20 C = ~C;
+                    always #40 B = ~B;
+                    always #80 A = ~A;
+            
+            
+                seven_segment_led run(a, b, c, d, e, f, g, A, B, C, D);
+              endmodule
+    </pre>
+    <h3>
+        <i>Output: </i>
+    </h3>
+    <pre>
+            Time	A    B  C  D |  a b c d e f g
+            0	        0    0  0  0 |  1 1 1 1 1 1 0
+            10	        0    0  0  1 |  0 1 1 0 0 0 0
+            20	        0    0  1  0 |  1 1 0 1 1 0 1
+            30	        0    0  1  1 |  1 1 1 1 0 0 1
+            40	        0    1  0  0 |  0 1 1 0 0 1 1
+            50	        0    1  0  1 |  1 0 1 1 0 1 1
+            60	        0    1  1  0 |  1 0 1 1 1 1 1
+            70	        0    1  1  1 |  1 1 1 0 0 0 0
+            80	        1    0  0  0 |  1 1 1 1 1 1 1
+            90	        1    0  0  1 |  1 1 1 1 0 1 1
+            100	        1    0  1  0 |  1 1 0 1 1 1 1
+            110	        1    0  1  1 |  1 1 1 1 0 1 1
+            120	        1    1  0  0 |  1 1 1 1 0 1 1
+            130	        1    1  0  1 |  1 0 1 1 0 1 1
+            140	        1    1  1  0 |  1 0 1 1 1 1 1
+            150	        1    1  1  1 |  1 1 1 1 0 1 1
+        
+    </pre>
+
+    <h2>Discussion: </h2>
+    <p>
+        We have completed all the sections in this lab. The verilog program that we wrote confirms the equations we got for each
+        segment is correct after referencing to that was shown in the lab. We should get
+        <strong>20/20</strong> points.
+    </p>
+
+</body>
+</head>
+
+</html>

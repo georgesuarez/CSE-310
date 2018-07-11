@@ -8,10 +8,16 @@
 <body>
 
     <h1>Lab 8 - Binary Counter</h1>
-    <small>By George Suarez, Cyrus Melchor, and Ian Becaer</small>
+    <small>By George Suarez and Ian Becaer</small>
     <hr>
 
     <h2>1. Experiment</h2>
+    <h3>Examining the 74X374 chip. </h3>
+    <p><strong>Can the chip LS374 be used to build a binary ripple counter? Why? </strong></p>
+    <p>No we cannot build a binary ripple counter using the LS374 chip because it does not have a
+        ~Q output and it does not have the full functionallity of an actual D flip-flop chip.
+    </p>
+
     <h3>BCD Binary Counter Table</h3>
     <table border="1">
         <tbody>
@@ -198,6 +204,103 @@
         </tbody>
     </table>
 
+    <h2>Boolean Equations: </h2>
+    <p>D<sub>0</sub> = !Q<sub>0</sub></p>
+    <p>D<sub>1</sub> = !Q<sub>3</sub> * (Q<sub>1</sub> ^ Q<sub>0</sub>)</p>
+    <p>D<sub>2</sub> = Q<sub>2</sub> ^ (Q<sub>1</sub> * Q<sub>0</sub>)</p>
+    <p>D<sub>3</sub> = Q<sub>3</sub>* !Q<sub>0</sub> + Q<sub>2</sub> * Q<sub>1</sub> * Q<sub>0</sub></p>
+
+    <br>
+
+    <h2>2. Verilog Program</h2>
+    <h3><i>ff.v: </i></h3>
+    <pre>
+ module Dff ( input ck, input rst, input D, output reg Q );
+   always @ ( posedge ck, posedge rst )
+   if ( rst ) Q <= 1'b0;
+       else Q <= D;
+endmodule
+
+module bcdCounter ( input ck, input rst, output [3:0] Q );
+        wire [3:0] D;
+        assign D[0] = ~Q[0];
+        assign D[1] = ~Q[3] & ( Q[1] ^ Q[0] );
+        assign D[2] = Q[2] ^ ( Q[1] & Q[0] );
+        assign D[3] = Q[3] & ~Q[0] | Q[2] & Q[1] & Q[0];
+
+        Dff    FF0 ( ck, rst, D[0], Q[0] ),
+               FF1 ( ck, rst, D[1], Q[1] ),
+               FF2 ( ck, rst, D[2], Q[2] ),
+               FF3 ( ck, rst, D[3], Q[3] );
+endmodule
+    </pre>
+
+    <h3><i>bcd_tb.v: </i></h3>
+    <pre>
+module bcd_tb;
+	reg ck;
+	reg rst;
+
+	wire [3:0] Q;
+
+	bcdCounter uut ( .ck(ck), .rst(rst), .Q(Q) );
+
+	initial begin
+	
+	$display ("time\t Clk  Q[3] Q[2] Q[1] Q[0] ");
+	$monitor ("%g\t %b %4b ", $time, ck, Q );
+
+        end
+
+	initial begin
+		ck = 1'b1;
+		rst = 1'b1;
+		#2 rst = 1'b0;
+	end
+
+	initial #260 $finish;
+	always #10 ck = ~ck;
+endmodule
+    </pre>
+
+    <h3><i>Output: </i></h3>
+    <pre>
+        time	 Clk  Q[3] Q[2] Q[1] Q[0]
+        0	 1 0000
+        10	 0 0000
+        20	 1 0001
+        30	 0 0001
+        40	 1 0010
+        50	 0 0010
+        60	 1 0011
+        70	 0 0011
+        80	 1 0100
+        90	 0 0100
+        100	 1 0101
+        110	 0 0101
+        120	 1 0110
+        130	 0 0110
+        140	 1 0111
+        150	 0 0111
+        160	 1 1000
+        170	 0 1000
+        180	 1 1001
+        190	 0 1001
+        200	 1 0000
+        210	 0 0000
+        220	 1 0001
+        230	 0 0001
+        240	 1 0010
+        250	 0 0010
+        260	 1 0011
+    </pre>
+
+
+    <h2>Discussion: </h2>
+    <p>We were able to get the LCD to display 0 to 9 using switches which was fine, and we sucessfully 
+        created the verilog program that simulates the equations we got from the table. We will give ourselves
+        <strong>20/20</strong> points.
+    </p>
 
 </body>
 

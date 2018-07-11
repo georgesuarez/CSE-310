@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Lab 9</title>
+</head>
+
+<body>
+    <h1>Lab 9 - Spartan3 FPGA</h1>
+    <small>By George Suarez, Cyrus Melcohor, and Ian Becaer</small>
+    <hr>
+    <h2>1. Experiment</h2>
+    <h3>A) Using Spartan3</h3>
+    <h2>
+        <i>sb.v: </i>
+    </h2>
+    <pre>
+        module ( output f, input a, input b );
+            assign f = a || b;
+        endmodule
+    </pre>
+    <h2>
+        <i>sb.ucf: </i>
+    </h2>
+    <pre>
+        #slide switches  SW1 and SW2 for input
+        NET a  LOC = F12;
+        NET b  LOC = G12;
+    
+        # LED for output
+        NET f  LOC = K12;
+    </pre>
+    <br>
+    <h3>b) Implementing Your Sequence Detector</h3>
+    <h2>
+        <i>sb.v: </i>
+    </h2>
+    <pre>
+module Dff(output reg Q, Qn, input ck, rst, D);
+    always@(posedge ck, posedge rst)
+    if (rst != 0)
+        begin
+            Q <= 1'b0;
+            Qn <= 1'b1;
+        end
+    else
+        begin
+            Q <= D;
+            Qn <= ~D;
+        end
+endmodule
+
+    </pre>
+    <h3><i>sb.ucf: </i></h3>
+    <pre>
+
+#Created by Constraints Editor (xc3s200-ft256-4) - 2017/03/02
+#NET "ck"  LOC = "T9";
+#TIMESPEC TS_ck = PERIOD "ck" 20 ns HIGH 50%;
+#========================================================
+# Timing constraint of S3 50-MHz onboard oscillator
+# name of the clock signal is clk
+#========================================================
+NET "ck" TNM_NET = "clk";
+TIMESPEC "TS_clk" = PERIOD "clk" 40 ns HIGH 50 %;
+NET "I" LOC = "F12";
+NET "rst" LOC = "G12";
+NET "F" LOC = "K12"; 
+NET "PB"   LOC = "M13";
+    </pre>
+
+    <h3>Discussion:
+    </h3>
+    <p>We were not able to get the board working correctly for implementing
+        the sequence dectector. So we will give ourselves 15/20 points.</p>
+
+</body>
+
+</html>

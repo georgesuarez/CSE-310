@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lab 7</title>
+</head>
+<body>
+
+    <h1>Lab 7 - 3x8 Decoder</h1>
+    <small>By George Suarez, Cyrus Melchor, and Ian Becaer</small>
+    <hr>
+
+    <h2>1. Preparation</h2>
+    <h3><i>decoder.v: </i></h3>
+    <pre>
+          module dec2x4 ( output [3:0] Y,  input EN, input [1:0] A );
+            assign Y[0] = ~A[1] & ~A[0]  & EN;
+            assign Y[1] = ~A[1] &  A[0]  & EN;
+            assign Y[2] =  A[1] &  ~A[0] & EN;
+            assign Y[3] =  A[1] &  A[0]  & EN;
+          endmodule
+          
+          module dec3x8 ( output [7:0] Y, input [2:0] A );
+            dec2x4 dec0 ( Y [3:0], ~A[2], A[1:0] );
+            dec2x4 dec1 ( Y [7:4], A[2], A[1:0] );
+          endmodule
+    </pre>
+    
+    <h3><i>dec3x8_tb.v: </i></h3>
+    <pre>
+            `timescale 1ns / 1ps
+
+            module dec3x8_tb;
+            
+                reg [2:0] A;
+            
+                wire [7:0] Y;
+            
+                dec3x8 uut ( .Y(Y), .A(A) );
+            
+                always begin
+                    A = 3'b000;
+                #10 A = 3'b001;
+                #10 A = 3'b010;
+                #10 A = 3'b011;
+                #10 A = 3'b100;
+                #10 A = 3'b101;
+                #10 A = 3'b110;
+                #10 A = 3'b111;
+            
+                #20 $finish;
+              end
+            
+              initial begin
+                
+                $display("Time \t A2 A1 A0  \t Y7 Y6 Y5 Y4 Y3 Y2 Y1 Y0");
+                $monitor("%g \t %b   %b  %b \t %b  %b  %b  %b  %b  %b  %b  %b "
+                , $time , A[2], A[1], A[0], Y[7], Y[6], Y[5], Y[4], Y[3], Y[2], Y[1], Y[0] );
+            
+                #90 $finish;
+             end
+            endmodule
+    </pre>
+    <h3><i>Output: </i></h3>
+    <pre>
+            Time A2 A1 A0  	 Y7 Y6 Y5 Y4 Y3 Y2 Y1 Y0
+            0 	 0   0  0 	 0  0  0  0  0  0  0  1
+            10 	 0   0  1 	 0  0  0  0  0  0  1  0
+            20 	 0   1  0 	 0  0  0  0  0  1  0  0
+            30 	 0   1  1 	 0  0  0  0  1  0  0  0
+            40 	 1   0  0 	 0  0  0  1  0  0  0  0
+            50 	 1   0  1 	 0  0  1  0  0  0  0  0
+            60 	 1   1  0 	 0  1  0  0  0  0  0  0
+            70 	 1   1  1 	 1  0  0  0  0  0  0  0
+    </pre>
+
+    <h2>2. Experiment</h2>
+    <h2>Discussion: </h2>
+    <p>
+        We did manage to successfully complete the verilog program and the 3x8 decoder circuit.
+        We should receive <strong>20/20</strong> points.
+    </p>
+</body>
+</html>

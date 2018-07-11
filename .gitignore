@@ -1,3 +1,12 @@
 boolean_test
+add-sub-tb
+test
+mux2x1_tb
+mux4x1_tb
+mux81x1_tb
+4bit_full_adder
+my_seqDesign
+7segled-tb
+bcd_tb
 .DS_Store
 .vscode

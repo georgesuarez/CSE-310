@@ -1,0 +1,33 @@
+PARTNO       PLD01;
+NAME         CODECONV;
+DATE         05/06/18;
+REV          01;
+DESIGNER     George Suarez Cyrus Melchor;
+COMPANY      CSUSB;
+DEVICE       G16V8A;
+ASSEMBLY     BREADBOARD;
+LOCATION     JBH-356;
+
+/* INPUTS */
+PIN 1 = A;
+PIN 2 = B;
+PIN 3 = C;
+PIN 4 = D;
+
+/* OUTPUTS */
+PIN 12 = a;
+PIN 13 = b;
+PIN 14 = c;
+PIN 15 = d;
+PIN 16 = e;
+PIN 17 = f;
+PIN 18 = g;
+
+/* BOOLEAN FUNCTIONS */
+a = !B&!D # C # B&D # A;
+b = !B # !C&!D # C&D;
+c = !C # D # B;
+d = !B&!D # !B&C # B&!C&D # C&!D # A;
+e = !B&!D # C&!D;
+f = !C&!D # B&!C # B&!D # A;
+g = !B&C # B&!C # A # B&!D;
